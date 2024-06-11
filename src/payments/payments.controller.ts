@@ -1,13 +1,13 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { PaymnetsService } from './paymnets.service';
+import { PaymentsService } from './payments.service';
 
-@Controller('paymnets')
-export class PaymnetsController {
-  constructor(private readonly paymnetsService: PaymnetsService) {}
+@Controller('payments')
+export class PaymentsController {
+  constructor(private readonly paymentsService: PaymentsService) {}
 
   @Post('create-payment-session')
   createPaymentSession() {
-    return 'create payment session';
+    return this.paymentsService.createPaymentSession();
   }
 
   @Get('success')
