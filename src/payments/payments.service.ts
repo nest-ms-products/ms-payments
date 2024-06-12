@@ -47,7 +47,15 @@ export class PaymentsService {
       res.status(400).send(`Webhook Error: ${error.message}`);
       return;
     }
-    console.log({ sig, event });
+
+    switch (event.type) {
+      case 'charge.succeeded':
+        console.log({ event });
+        break;
+
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
     return res.status(200).json({ sig });
   }
 }
