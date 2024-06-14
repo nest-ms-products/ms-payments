@@ -20,7 +20,7 @@ export class PaymentsService {
       },
       quantity: item.quantity,
     }));
-    const session = this.stripe.checkout.sessions.create({
+    const session = await this.stripe.checkout.sessions.create({
       payment_intent_data: {
         metadata: {
           orderId,
@@ -32,7 +32,11 @@ export class PaymentsService {
       cancel_url: envs.stripeCancelUrl,
     });
 
-    return session;
+    return {
+      successUrl: session.success_url,
+      cancelUrl: session.cancel_url,
+      url: session.url,
+    };
   }
 
   async stripeWebhook(req: Request, res: Response) {
